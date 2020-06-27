@@ -19,12 +19,14 @@ import * as actionCreators from "../../redux/actions/index";
 
 const styles = customStyles;
 
-class Login extends React.Component {
+class Signup extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             userEmail: "",
+            userName: "",
             password: "",
+            confirmPassword: "",
         };
     }
 
@@ -33,7 +35,9 @@ class Login extends React.Component {
     };
 
     validInput = () => {
-        return this.state.userEmail.length > 0 && this.state.password.length > 0;
+        return this.state.userName.length > 0 &&
+            this.state.userEmail.length > 0 && this.state.password.length > 0 &&
+            this.state.password === this.state.confirmPassword;
     };
 
     submitHandler = (event) => {
@@ -52,11 +56,21 @@ class Login extends React.Component {
                     margin="normal"
                     required
                     fullWidth
-                    id="email"
+                    id="userEmail"
                     label="Email"
                     name="email"
                     autoComplete="email"
                     autoFocus
+                    onChange={(event) => this.updateValueHandler(event)}
+                />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="userName"
+                    label="Name"
+                    id="userName"
                     onChange={(event) => this.updateValueHandler(event)}
                 />
                 <TextField
@@ -71,6 +85,18 @@ class Login extends React.Component {
                     autoComplete="current-password"
                     onChange={(event) => this.updateValueHandler(event)}
                 />
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="confirmPassword"
+                    label="Confirm password"
+                    type="password"
+                    id="confirmPassword"
+                    autoComplete="current-password"
+                    onChange={(event) => this.updateValueHandler(event)}
+                />
                 <Button
                     type="submit"
                     fullWidth
@@ -79,14 +105,14 @@ class Login extends React.Component {
                     className={classes.button}
                     disabled={!this.validInput()}
                 >
-                    {"Sign in"}
+                    {"Sign up"}
                 </Button>
                 <Grid container>
                     <Grid item xs>
                     </Grid>
                     <Grid item>
-                        <Link to="/signup" variant="body2">
-                            {"Don't have an account? Sign Up"}
+                        <Link to="/signin" variant="body2">
+                            {"Already have an account? Sign In"}
                         </Link>
                     </Grid>
                 </Grid>
@@ -115,7 +141,7 @@ class Login extends React.Component {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        {"Sign in"}
+                        {"Sign up"}
                     </Typography>
                     {form}
                 </div>
@@ -128,10 +154,10 @@ class Login extends React.Component {
     }
 }
 
-Login.propTypes = {
+Signup.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(
-    connect(null, null)(Login)
+    connect(null, null)(Signup)
 );
