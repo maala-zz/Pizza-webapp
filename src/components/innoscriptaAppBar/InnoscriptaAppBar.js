@@ -137,7 +137,7 @@ function InnoscriptaAppBar(props) {
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         <IconButton aria-label="show 17 new notifications" color="inherit">
-                            <Badge badgeContent={10} color="secondary">
+                            <Badge badgeContent={props.pizzaInCartArray.length} color="secondary">
                                 <AddShoppingCartIcon />
                             </Badge>
                         </IconButton>
@@ -173,7 +173,7 @@ function InnoscriptaAppBar(props) {
 
 const mapStateToProps = (state) => {
     return {
-        isLoading: state.signIn.loading
+        pizzaInCartArray: state.cart.pizzaInCartArray
     };
 };
 
