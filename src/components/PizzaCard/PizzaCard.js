@@ -2,6 +2,8 @@ import React from 'react';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
+import DeleteIcon from '@material-ui/icons/Delete';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -22,6 +24,7 @@ class PizzaCard extends React.Component {
     render() {
         const { classes } = this.props;
 
+        const { pizzaId } = this.props;
         const { imageUrl } = this.props;
         const { name } = this.props;
         const { description } = this.props;
@@ -55,14 +58,14 @@ class PizzaCard extends React.Component {
                 </CardContent>
                 <CardActions disableSpacing>
                     <IconButton aria-label="add to favorites">
-                        <FavoriteIcon />
+                        <FavoriteBorderIcon />
                     </IconButton>
                     <Tooltip title="Add to cart">
                         <IconButton aria-label="share">
                             <ShoppingBasketIcon />
                         </IconButton>
                     </Tooltip>
-                    <input type="number" placeholder="#" min="0" max="99" style={{ width: 30 }} />
+                    <input id={pizzaId} type="number" placeholder="#" min="0" max="99" style={{ width: 30 }} />
                 </CardActions>
             </Card>
         );
