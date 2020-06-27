@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { styles as customStyles } from "./styles";
 import Copyright from "../../components/Copyright";
+import * as authService from "../../services/auth";
 import * as actionCreators from "../../redux/actions/index";
 
 const styles = customStyles;
@@ -42,10 +43,14 @@ class Signup extends React.Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-        this.props.onAuth(this.state.username, this.state.password);
+        this.props.signUp(this.state.userEmail, this.state.password, this.state.userName);
     };
 
     render() {
+
+        if (authService.isAuthenticated()) {
+            return <Redirect to="/" />;
+        }
 
         const { classes } = this.props;
 
@@ -158,6 +163,20 @@ Signup.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
+const mapStateToProps = (state) => {
+    return {
+        isLoading: state.signUp.loading,
+        error: state.signUp.error
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signUp: (userEmail, password, userName) =>
+            dispatch(actionCreators.signUp(userEmail, password, userName)),
+    };
+};
+
 export default withStyles(styles)(
-    connect(null, null)(Signup)
+    connect(mapStateToProps, mapDispatchToProps)(Signup)
 );
