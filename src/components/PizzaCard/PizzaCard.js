@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -11,9 +10,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Tooltip from '@material-ui/core/Tooltip';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -25,31 +22,36 @@ class PizzaCard extends React.Component {
     render() {
         const { classes } = this.props;
 
+        const { imageUrl } = this.props;
+        const { name } = this.props;
+        const { description } = this.props;
+        const { price } = this.props;
+
         return (
             <Card className={classes.root} >
                 <CardHeader
                     avatar={
                         <Avatar aria-label="recipe" className={classes.avatar}>
-                            R
-              </Avatar>
+                            {name.charAt(0).toUpperCase()}
+                        </Avatar>
                     }
                     action={
                         <IconButton aria-label="settings">
                             <MoreVertIcon />
                         </IconButton>
                     }
-                    title="Pizza salami"
-                    subheader="10$"
+                    title={name}
+                    subheader={price + "$"}
                 />
                 <CardMedia
                     className={classes.media}
-                    image="https://innoscripta-pizza-demo.s3.amazonaws.com/4-min.jpg"
+                    image={imageUrl}
                     title="Paella dish"
                 />
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        Pizza dscription
-            </Typography>
+                        {description.length > 100 ? description.substring(0, 100) + "..." : description}
+                    </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
                     <IconButton aria-label="add to favorites">
