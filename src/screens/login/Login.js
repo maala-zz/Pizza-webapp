@@ -132,8 +132,7 @@ Login.propTypes = {
 const mapStateToProps = (state) => {
     return {
         isLoading: state.signIn.loading,
-        error: state.signIn.error,
-        isAuthenticated: state.signIn.id !== null
+        error: state.signIn.error
     };
 };
 

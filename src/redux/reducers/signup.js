@@ -1,7 +1,6 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    userEmail: null,
     error: null,
     loading: false,
 };
