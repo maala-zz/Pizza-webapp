@@ -50,7 +50,7 @@ class Home extends React.Component {
 
                     {this.props.pizzaArray.map((pizza, index) => (
 
-                        <div style={{ float: "left", width: "25%", height: "400" }}>
+                        <div style={{ float: "left", width: "24%", height: "400" }}>
                             <PizzaCard imageUrl={pizza.image_url} name={pizza.name}
                                 description={pizza.description} price={pizza.price} />
                         </div>
