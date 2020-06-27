@@ -14,78 +14,22 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { useHistory } from 'react-router-dom';
+import { connect } from "react-redux";
+import * as authService from "../../services/auth";
+import * as actionCreators from "../../redux/actions/index";
+import { styles as customStyles } from "./styles";
 
-const useStyles = makeStyles((theme) => ({
-    grow: {
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        display: 'none',
-        [theme.breakpoints.up('sm')]: {
-            display: 'block',
-        },
-    },
-    search: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: fade(theme.palette.common.white, 0.15),
-        '&:hover': {
-            backgroundColor: fade(theme.palette.common.white, 0.25),
-        },
-        marginRight: theme.spacing(2),
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(3),
-            width: 'auto',
-        },
-    },
-    searchIcon: {
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    inputRoot: {
-        color: 'inherit',
-    },
-    inputInput: {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('md')]: {
-            width: '20ch',
-        },
-    },
-    sectionDesktop: {
-        display: 'none',
-        [theme.breakpoints.up('md')]: {
-            display: 'flex',
-        },
-    },
-    sectionMobile: {
-        display: 'flex',
-        [theme.breakpoints.up('md')]: {
-            display: 'none',
-        },
-    },
-}));
+const useStyles = customStyles;
 
-export default function InnoscriptaAppBar() {
+function InnoscriptaAppBar(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const history = useHistory()
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -104,6 +48,21 @@ export default function InnoscriptaAppBar() {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const handleLogout = () => {
+        handleMenuClose();
+        props.logout();
+    };
+
+    const handleSignup = () => {
+        handleMenuClose();
+        history.push('signup');
+    };
+
+    const handleNavigateToMyOrders = () => {
+        handleMenuClose();
+        history.push('orders');
+    };
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -115,8 +74,18 @@ export default function InnoscriptaAppBar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+
+            {
+                authService.isAuthenticated() ?
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem> :
+                    <MenuItem onClick={handleSignup}>Sign up</MenuItem>
+            }
+            {
+                authService.isAuthenticated() ?
+                    <MenuItem onClick={handleNavigateToMyOrders}>My orders</MenuItem> :
+                    null
+            }
+
         </Menu>
     );
 
@@ -140,7 +109,7 @@ export default function InnoscriptaAppBar() {
                 >
                     <AccountCircle />
                 </IconButton>
-                <p>Profile</p>
+                <p>{authService.isAuthenticated() ? "Logout" : "Login"}</p>
             </MenuItem>
         </Menu>
     );
@@ -200,4 +169,18 @@ export default function InnoscriptaAppBar() {
             {renderMenu}
         </div>
     );
-}
+};
+
+const mapStateToProps = (state) => {
+    return {
+        isLoading: state.signIn.loading
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logout: () => dispatch(actionCreators.logout()),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(InnoscriptaAppBar);
