@@ -1,7 +1,6 @@
-import React from "react";
+import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { withStyles } from "@material-ui/core/styles";
-export const styles = theme => ({
+export const styles = makeStyles((theme) => ({
     grow: {
         flexGrow: 1,
     },
@@ -63,4 +62,4 @@ export const styles = theme => ({
             display: 'none',
         },
     },
-});
+}));
