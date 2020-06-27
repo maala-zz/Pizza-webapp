@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { styles as customStyles } from "./styles";
 import Copyright from "../../components/Copyright";
+import SignUpFooter from "../../components/SignUpFooter";
 import * as authService from "../../services/auth";
 import * as actionCreators from "../../redux/actions/index";
 
@@ -112,15 +113,7 @@ class Signup extends React.Component {
                 >
                     {"Sign up"}
                 </Button>
-                <Grid container>
-                    <Grid item xs>
-                    </Grid>
-                    <Grid item>
-                        <Link to="/signin" variant="body2">
-                            {"Already have an account? Sign In"}
-                        </Link>
-                    </Grid>
-                </Grid>
+                <SignUpFooter />
             </form>
         );
 
