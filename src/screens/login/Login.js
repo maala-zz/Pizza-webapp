@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { styles as customStyles } from "./styles";
 import Copyright from "../../components/Copyright";
+import * as authService from "../../services/auth";
 import * as actionCreators from "../../redux/actions/index";
 
 const styles = customStyles;
@@ -38,10 +39,14 @@ class Login extends React.Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-        this.props.onAuth(this.state.username, this.state.password);
+        this.props.signIn(this.state.userEmail, this.state.password);
     };
 
     render() {
+
+        if (authService.isAuthenticated()) {
+            return <Redirect to="/" />;
+        }
 
         const { classes } = this.props;
 
@@ -52,9 +57,9 @@ class Login extends React.Component {
                     margin="normal"
                     required
                     fullWidth
-                    id="email"
+                    id="userEmail"
                     label="Email"
-                    name="email"
+                    name="userEmail"
                     autoComplete="email"
                     autoFocus
                     onChange={(event) => this.updateValueHandler(event)}
@@ -132,6 +137,21 @@ Login.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
+const mapStateToProps = (state) => {
+    return {
+        isLoading: state.signIn.loading,
+        error: state.signIn.error,
+        isAuthenticated: state.signIn.id !== null
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signIn: (userEmail, password) =>
+            dispatch(actionCreators.signIn(userEmail, password)),
+    };
+};
+
 export default withStyles(styles)(
-    connect(null, null)(Login)
+    connect(mapStateToProps, mapDispatchToProps)(Login)
 );
