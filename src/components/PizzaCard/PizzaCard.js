@@ -43,7 +43,7 @@ class PizzaCard extends React.Component {
                 />
                 <CardMedia
                     className={classes.media}
-                    image="/static/images/cards/paella.jpg"
+                    image="https://innoscripta-pizza-demo.s3.amazonaws.com/1.jpg"
                     title="Paella dish"
                 />
                 <CardContent>

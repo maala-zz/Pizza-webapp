@@ -2,10 +2,10 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 export const styles = theme => ({
     root: {
-        maxWidth: "300",
-        minWidth: "300",
+        maxWidth: "400",
+        minWidth: "400",
         marginTop: "3%",
-        marginLeft: "2%"
+        marginLeft: "10%"
     },
     media: {
         height: 0,
