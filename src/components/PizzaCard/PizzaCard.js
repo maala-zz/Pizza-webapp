@@ -20,28 +20,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { connect } from "react-redux";
 import { styles as customStyles } from "./styles";
 const styles = customStyles;
-const useStyles = makeStyles((theme) => ({
-    root: {
-        maxWidth: 300,
-    },
-    media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
-    },
-    expand: {
-        transform: 'rotate(0deg)',
-        marginLeft: 'auto',
-        transition: theme.transitions.create('transform', {
-            duration: theme.transitions.duration.shortest,
-        }),
-    },
-    expandOpen: {
-        transform: 'rotate(180deg)',
-    },
-    avatar: {
-        backgroundColor: red[500],
-    },
-}));
+
 class PizzaCard extends React.Component {
     render() {
         const { classes } = this.props;
