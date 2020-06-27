@@ -10,3 +10,9 @@ export const SIGNUP_FAIL = "SIGNUP_FAIL";
 export const SIGNUP_START = "SIGNUP_START";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 //#endregion
+
+//#region PIZZA
+export const GET_ALL_PIZZA_FAIL = "GET_ALL_PIZZA_FAIL";
+export const GET_ALL_PIZZA_START = "GET_ALL_PIZZA_START";
+export const GET_ALL_PIZZA_SUCCESS = "GET_ALL_PIZZA_SUCCESS";
+//#endregion
