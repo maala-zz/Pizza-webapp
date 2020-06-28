@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import { Route, BrowserRouter as Router } from "react-router-dom";
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer } from 'react-notifications';
 import "./App.css";

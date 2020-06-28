@@ -15,7 +15,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { styles as customStyles } from "./styles";
 import Copyright from "../../components/Copyright";
 import SignUpFooter from "../../components/SignUpFooter";
-import * as authService from "../../services/auth";
 import * as actionCreators from "../../redux/actions/index";
 
 const styles = customStyles;
@@ -48,7 +47,7 @@ class Signup extends React.Component {
 
     render() {
 
-        if (authService.isAuthenticated()) {
+        if (this.props.isAuthenticated) {
             return <Redirect to="/" />;
         }
 
