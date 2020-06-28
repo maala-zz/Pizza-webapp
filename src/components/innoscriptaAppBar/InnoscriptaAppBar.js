@@ -11,7 +11,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
+import HomeIcon from '@material-ui/icons/Home';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { useHistory } from 'react-router-dom';
@@ -70,6 +70,10 @@ function InnoscriptaAppBar(props) {
     const handleSignin = () => {
         history.push('signin');
     };
+
+    const handleHomeClick = () => {
+        history.push('/');
+    }
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -147,6 +151,11 @@ function InnoscriptaAppBar(props) {
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
+                        <IconButton aria-label="show 17 new notifications" color="inherit" onClick={handleHomeClick}>
+                            <Badge badgeContent={props.pizzaInCartArray.length} color="secondary">
+                                <HomeIcon />
+                            </Badge>
+                        </IconButton>
                         <IconButton aria-label="show 17 new notifications" color="inherit" onClick={handleCartClick}>
                             <Badge badgeContent={props.pizzaInCartArray.length} color="secondary">
                                 <AddShoppingCartIcon />
