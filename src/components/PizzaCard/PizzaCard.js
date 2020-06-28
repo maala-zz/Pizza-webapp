@@ -43,6 +43,12 @@ class PizzaCard extends React.Component {
         this.props.addPizzaToCart(pizza);
     };
 
+    isPizzaInCart(pizzaId) {
+        let item = this.props.pizzaInCartArray.filter(item => item.id === pizzaId)[0];
+        if (item != null) return true;
+        return false;
+    }
+
     render() {
         const { classes } = this.props;
 
@@ -80,7 +86,9 @@ class PizzaCard extends React.Component {
                 </CardContent>
                 <CardActions disableSpacing>
                     <IconButton aria-label="add to favorites">
-                        <FavoriteBorderIcon />
+                        {
+                            this.isPizzaInCart(pizzaId) === true ? <FavoriteIcon /> : <FavoriteBorderIcon />
+                        }
                     </IconButton>
                     <Tooltip title="Add to cart">
                         <IconButton aria-label="share">
@@ -104,7 +112,8 @@ PizzaCard.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        isLoading: state.signUp.loading
+        isLoading: state.signUp.loading,
+        pizzaInCartArray: state.cart.pizzaInCartArray
     };
 };
 
