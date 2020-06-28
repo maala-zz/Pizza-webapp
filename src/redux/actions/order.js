@@ -1,6 +1,7 @@
 import * as ActionTypes from "./actionTypes";
 import axios from "axios";
-import { OrdersUrl } from "../../config/api-urls";
+import { NotificationManager } from 'react-notifications';
+import { OrdersUrl, SubmitOrderUrl } from "../../config/api-urls";
 
 export const getUserOrdersStart = () => {
     return {
@@ -21,7 +22,6 @@ export const getUserOrdersFail = err => {
         err: err
     };
 };
-
 
 export const getUserOrders = () => {
     return dispatch => {
@@ -46,3 +46,47 @@ export const getUserOrders = () => {
             });
     };
 };
+
+//#region submit order actions
+export const submitOrderStart = () => {
+    return {
+        type: ActionTypes.SUBMIT_ORDER_START
+    };
+};
+
+export const submitOrderSuccess = () => {
+    return {
+        type: ActionTypes.SUBMIT_ORDER_SUCCESS
+    };
+};
+
+export const submitOrderFail = err => {
+    return {
+        type: ActionTypes.SUBMIT_ORDER_FAIL,
+        err: err
+    };
+};
+
+export const submitOrder = (order) => {
+    return dispatch => {
+        dispatch(submitOrderStart());
+        let token = localStorage.getItem("innoscriptaUserToken");
+        return axios
+            .post(SubmitOrderUrl, order, {
+                headers: {
+                    'Authorization': `${token}`
+                }
+            })
+            .then(response => {
+                NotificationManager.success('You have submitted a new order!', 'Successful!', 2000);
+                console.log("getUserOrders response", response);
+                dispatch(submitOrderSuccess(response.data));
+            })
+            .catch(err => {
+                NotificationManager.error('Error while submitting the order!', 'Error!', 2000);
+                dispatch(submitOrderFail("Error: Failed"));
+            });
+    };
+};
+
+//#endregion
