@@ -62,10 +62,6 @@ class Cart extends React.Component {
             <div>
 
                 <InnoscriptaAppBar />
-                {
-                    this.props.pizzaInCartArray.length === 0 || !this.props.isAuthenticated ?
-                        < InnoscriptaAlert /> : null
-                }
 
                 <TableContainer component={Paper}>
                     <Table className={classes.table} size="small" aria-label="a dense table">
@@ -122,6 +118,10 @@ class Cart extends React.Component {
                 >
                     {"Submit order"}
                 </Button>
+                {
+                    this.props.pizzaInCartArray.length === 0 || !this.props.isAuthenticated ?
+                        <InnoscriptaAlert /> : null
+                }
             </div >
         );
     }
