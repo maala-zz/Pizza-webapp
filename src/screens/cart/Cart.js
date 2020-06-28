@@ -25,20 +25,32 @@ class Cart extends React.Component {
         this.props.updatePizzaOnCartQuantityIfExists({ id: pizzaId, quantity: event.target.value });
     }
 
-    handleOrderAddressChange(event) {
+    handleOrderAddressChange = (event) => {
         this.props.updateOrderAddress(event.target.value);
     }
 
-    handleOrderSerialIdChange(event) {
+    handleOrderSerialIdChange = (event) => {
         this.props.updateOrderSerialId(event.target.value);
     }
 
-    handleOrderNameChange(event) {
+    handleOrderNameChange = (event) => {
         this.props.updateOrderName(event.target.value);
     }
 
-    handleOrderDeliveryCostChange(event) {
+    handleOrderDeliveryCostChange = (event) => {
         this.props.updateOrderDeliveryCost(event.target.value);
+    }
+
+    submitOrder = (event) => {
+        let order = {
+            address: this.props.orderAddress,
+            deliveryCost: this.props.orderDeliveryCost,
+            name: this.props.orderName,
+            orderSerialId: this.props.orderSerialId,
+            totalOrderCost: this.props.totalOrderCost,
+            pizzasInCart: this.props.pizzaInCartArray
+        };
+        this.props.submitOrder(order);
     }
 
     render() {
@@ -105,7 +117,8 @@ class Cart extends React.Component {
                     color="primary"
                     className={classes.button}
                     uppercase={false}
-                    disabled={!authService.isAuthenticated()}
+                    disabled={this.props.pizzaInCartArray.length === 0 || !this.props.isAuthenticated}
+                    onClick={this.submitOrder}
                 >
                     {"Submit order"}
                 </Button>
@@ -125,6 +138,15 @@ const mapStateToProps = (state) => {
     return {
         pizzaInCartArray: state.cart.pizzaInCartArray,
         totalOrderCost: state.cart.totalOrderCost,
+        orderSerialId: state.cart.orderSerialId,
+        orderName: state.cart.name,
+        orderAddress: state.cart.address,
+        orderDeliveryCost: state.cart.deliveryCost,
+
+        submittingOrderError: state.order.submittingOrderError,
+        isSubmittingOrder: state.order.isSubmittingOrder,
+        submittingOrderSuccess: state.order.submittingOrderSuccess,
+
         isAuthenticated: state.signIn.isAuthenticated,
     };
 };
@@ -136,6 +158,7 @@ const mapDispatchToProps = (dispatch) => {
         updateOrderName: (orderName) => dispatch(actionCreators.updateOrderName(orderName)),
         updateOrderAddress: (orderAddress) => dispatch(actionCreators.updateOrderAddress(orderAddress)),
         updateOrderDeliveryCost: (deliveryCost) => dispatch(actionCreators.updateOrderDeliveryCost(deliveryCost)),
+        submitOrder: (order) => dispatch(actionCreators.submitOrder(order)),
     };
 };
 

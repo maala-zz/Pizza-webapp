@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import 'react-notifications/lib/notifications.css';
+import { NotificationContainer } from 'react-notifications';
 import "./App.css";
 import Login from "./screens/login/Login";
 import Signup from "./screens/signup/Signup";
@@ -18,12 +20,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Switch>
+        <Router>
           <Route exact path="/" component={Home} />
           <Route exact path="/signin" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/cart" component={Cart} />
-        </Switch>
+          <NotificationContainer />
+        </Router>
       </div>
     );
   }
