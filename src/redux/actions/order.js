@@ -78,12 +78,12 @@ export const submitOrder = (order) => {
                 }
             })
             .then(response => {
-                NotificationManager.success('You have submitted a new order!', 'Successful!', 2000);
+                NotificationManager.success('You have submitted a new order!', 'Successful!', 3000);
                 console.log("getUserOrders response", response);
                 dispatch(submitOrderSuccess(response.data));
             })
             .catch(err => {
-                NotificationManager.error('Error while submitting the order!', 'Error!', 2000);
+                NotificationManager.error('Error while submitting the order!', 'Error!', 3000);
                 dispatch(submitOrderFail("Error: Failed"));
             });
     };

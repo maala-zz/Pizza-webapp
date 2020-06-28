@@ -1,5 +1,6 @@
 import * as ActionTypes from "./actionTypes";
 import axios from "axios";
+import { NotificationManager } from 'react-notifications';
 import { SignInUrl } from "../../config/api-urls";
 
 export const signInStart = () => {
@@ -45,17 +46,15 @@ export const signIn = (userEmail, password) => {
         return axios
             .post(SignInUrl, signInData)
             .then(response => {
-                if (!response.data) {
-                    dispatch(signInFail("Failed, please try again"));
-                } else {
-                    console.log("signIn response", response);
-                    localStorage.setItem("innoscriptaUserToken", "Bearer " + response.data.token);
-                    localStorage.setItem("innoscriptaUserEmail", userEmail);
-                    dispatch(signInSuccess());
-                    dispatch(checkSignInTimeout());
-                }
+                NotificationManager.success('Logged in!', 'Successful!', 1000);
+                localStorage.setItem("innoscriptaUserToken", "Bearer " + response.data.token);
+                localStorage.setItem("innoscriptaUserEmail", userEmail);
+                dispatch(signInSuccess());
+                dispatch(checkSignInTimeout());
+
             })
             .catch(err => {
+                NotificationManager.error('Please, check your email and password!', 'Error!', 3000);
                 dispatch(signInFail("Error: Failed"));
             });
     };

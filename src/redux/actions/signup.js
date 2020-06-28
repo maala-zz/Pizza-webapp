@@ -1,4 +1,5 @@
 import axios from "axios";
+import { NotificationManager } from 'react-notifications';
 import * as ActionTypes from "./actionTypes";
 import { signIn } from "../actions/signin";
 import { SignUpUrl } from "../../config/api-urls";
@@ -36,16 +37,13 @@ export const signUp = (userEmail, password, userName) => {
                 if (response.status == 208) {
                     dispatch(signUpFail("Failed, this email is already exist"));
                 }
-                if (!response.data) {
-                    dispatch(signUpFail("Failed, please try again"));
-                } else {
-                    console.log("signUp response", response);
-                    dispatch(signUpSuccess(response.data));
-                    dispatch(signIn(userEmail, password));
-                }
+                console.log("signUp response", response);
+                dispatch(signUpSuccess(response.data));
+                dispatch(signIn(userEmail, password));
             })
             .catch(err => {
                 dispatch(signUpFail("Error: Failed"));
+                NotificationManager.error('An unknown error has occured, please try again and contact support if this issue persists!', 'Error!', 3000);
             });
     };
 };

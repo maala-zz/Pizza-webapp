@@ -99,11 +99,6 @@ class Login extends React.Component {
             );
         }
 
-        let errorMessage = null;
-        if (this.props.error) {
-            errorMessage = <p style={{ color: "red" }}> {this.props.error} </p>;
-        }
-
         return (
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
@@ -116,7 +111,6 @@ class Login extends React.Component {
                     </Typography>
                     {form}
                 </div>
-                {errorMessage}
                 <Box mt={8}>
                     <Copyright />
                 </Box>
