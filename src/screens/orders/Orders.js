@@ -76,7 +76,7 @@ class Orders extends React.Component {
                         </TableHead>
                         <TableBody>
                             {this.props.userOrders.map((row) => (
-                                <OrdersTableRow key={row.name} row={row} />
+                                <OrdersTableRow key={row.id} row={row} />
                             ))}
                         </TableBody>
                     </Table>
