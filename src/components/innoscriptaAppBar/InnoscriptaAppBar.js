@@ -63,6 +63,14 @@ function InnoscriptaAppBar(props) {
         history.push('orders');
     };
 
+    const handleCartClick = () => {
+        history.push('cart');
+    };
+
+    const handleSignin = () => {
+        history.push('signin');
+    };
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -79,6 +87,9 @@ function InnoscriptaAppBar(props) {
                 authService.isAuthenticated() ?
                     <MenuItem onClick={handleLogout}>Logout</MenuItem> :
                     <MenuItem onClick={handleSignup}>Sign up</MenuItem>
+            }
+            {
+                !authService.isAuthenticated() ? <MenuItem onClick={handleSignin}>Sign in</MenuItem> : null
             }
             {
                 authService.isAuthenticated() ?
@@ -138,7 +149,7 @@ function InnoscriptaAppBar(props) {
                     <div className={classes.sectionDesktop}>
                         <IconButton aria-label="show 17 new notifications" color="inherit">
                             <Badge badgeContent={props.pizzaInCartArray.length} color="secondary">
-                                <AddShoppingCartIcon />
+                                <AddShoppingCartIcon onClick={handleCartClick} />
                             </Badge>
                         </IconButton>
                         <IconButton
