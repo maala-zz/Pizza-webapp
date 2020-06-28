@@ -147,9 +147,9 @@ function InnoscriptaAppBar(props) {
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        <IconButton aria-label="show 17 new notifications" color="inherit">
+                        <IconButton aria-label="show 17 new notifications" color="inherit" onClick={handleCartClick}>
                             <Badge badgeContent={props.pizzaInCartArray.length} color="secondary">
-                                <AddShoppingCartIcon onClick={handleCartClick} />
+                                <AddShoppingCartIcon />
                             </Badge>
                         </IconButton>
                         <IconButton
