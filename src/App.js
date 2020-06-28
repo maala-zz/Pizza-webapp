@@ -7,6 +7,7 @@ import Login from "./screens/login/Login";
 import Signup from "./screens/signup/Signup";
 import Home from "./screens/home/Home";
 import Cart from "./screens/cart/Cart";
+import Orders from "./screens/orders/Orders";
 import * as actionCreators from "./redux/actions/index";
 import { connect } from "react-redux";
 
@@ -25,6 +26,7 @@ class App extends Component {
           <Route exact path="/signin" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/cart" component={Cart} />
+          <Route exact path="/orders" component={Orders} />
           <NotificationContainer />
         </Router>
       </div>

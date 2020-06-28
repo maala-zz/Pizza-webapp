@@ -1,9 +1,9 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    orders: [],
-    error: null,
-    loading: false,
+    userOrders: [],
+    loadingUserOrdersError: null,
+    loadingUserOrders: false,
 
     submittingOrderError: null,
     isSubmittingOrder: false,
@@ -13,26 +13,26 @@ const initialState = {
 const getUserOrdersStart = (state, action) => {
     return {
         ...state,
-        loading: true,
-        error: null
+        loadingUserOrders: true,
+        loadingUserOrdersError: null
     };
 };
 
 const getUserOrdersFail = (state, action) => {
     return {
         ...state,
-        pizzaArray: null,
-        loading: false,
-        error: action.err
+        userOrders: null,
+        loadingUserOrders: false,
+        loadingUserOrdersError: action.err
     };
 };
 
 const getUserOrdersSuccess = (state, action) => {
     return {
         ...state,
-        orders: action.orders,
-        loading: false,
-        error: null,
+        userOrders: action.orders,
+        loadingUserOrders: false,
+        loadingUserOrdersError: null,
     };
 };
 
