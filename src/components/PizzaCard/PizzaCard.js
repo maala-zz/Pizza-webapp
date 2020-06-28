@@ -58,6 +58,10 @@ class PizzaCard extends React.Component {
         const { description } = this.props;
         const { price } = this.props;
 
+        let pizzaInCart = this.props.pizzaInCartArray.filter(item => item.id === pizzaId)[0];
+
+        const defaultQuantity = pizzaInCart == null ? null : pizzaInCart.quantity;
+
         return (
             <Card className={classes.root} >
                 <CardHeader
@@ -96,6 +100,7 @@ class PizzaCard extends React.Component {
                         </IconButton>
                     </Tooltip>
                     <input id={pizzaId} type="number"
+                        defaultValue={defaultQuantity}
                         placeholder="#" min="0"
                         max="99" style={{ width: 30 }}
                         onChange={(event) => this.onChangeQuantity(event, price, name)}
