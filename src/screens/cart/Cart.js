@@ -13,23 +13,11 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import InnoscriptaAppBar from "../../components/innoscriptaAppBar/InnoscriptaAppBar";
+import InnoscriptaAlert from "../../components/innoscriptaAlert/InnoscriptaAlert";
 import * as actionCreators from "../../redux/actions/index";
+import * as authService from "../../services/auth";
 import { styles as customStyles } from "./styles";
 const styles = customStyles;
-
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-
 
 class Cart extends React.Component {
 
@@ -58,8 +46,15 @@ class Cart extends React.Component {
         const { classes } = this.props;
 
         return (
+
             <div>
+
                 <InnoscriptaAppBar />
+                {
+                    this.props.pizzaInCartArray.length === 0 || !this.props.isAuthenticated ?
+                        < InnoscriptaAlert /> : null
+                }
+
                 <TableContainer component={Paper}>
                     <Table className={classes.table} size="small" aria-label="a dense table">
                         <TableHead>
@@ -110,6 +105,7 @@ class Cart extends React.Component {
                     color="primary"
                     className={classes.button}
                     uppercase={false}
+                    disabled={!authService.isAuthenticated()}
                 >
                     {"Submit order"}
                 </Button>
@@ -129,6 +125,7 @@ const mapStateToProps = (state) => {
     return {
         pizzaInCartArray: state.cart.pizzaInCartArray,
         totalOrderCost: state.cart.totalOrderCost,
+        isAuthenticated: state.signIn.isAuthenticated,
     };
 };
 
