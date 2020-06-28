@@ -8,10 +8,9 @@ export const signInStart = () => {
     };
 };
 
-export const signInSuccess = authData => {
+export const signInSuccess = () => {
     return {
-        type: ActionTypes.SIGNIN_SUCCESS,
-        authData: authData
+        type: ActionTypes.SIGNIN_SUCCESS
     };
 };
 
@@ -52,7 +51,7 @@ export const signIn = (userEmail, password) => {
                     console.log("signIn response", response);
                     localStorage.setItem("innoscriptaUserToken", "Bearer " + response.data.token);
                     localStorage.setItem("innoscriptaUserEmail", userEmail);
-                    dispatch(signInSuccess(response.data));
+                    dispatch(signInSuccess());
                     dispatch(checkSignInTimeout());
                 }
             })
@@ -64,12 +63,11 @@ export const signIn = (userEmail, password) => {
 
 export const checkAuthState = () => {
     return dispatch => {
-        const jsonAuthData = localStorage.getItem("signInData");
-        const authData = JSON.parse(jsonAuthData);
-        if (!jsonAuthData || authData.id === null) {
+        const token = localStorage.getItem("innoscriptaUserToken");
+        if (token === null) {
             dispatch(logout());
         } else {
-            dispatch(signInSuccess(authData));
+            dispatch(signInSuccess());
         }
     };
 };

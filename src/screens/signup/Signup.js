@@ -158,7 +158,8 @@ Signup.propTypes = {
 const mapStateToProps = (state) => {
     return {
         isLoading: state.signUp.loading,
-        error: state.signUp.error
+        error: state.signUp.error,
+        isAuthenticated: state.signIn.isAuthenticated,
     };
 };
 

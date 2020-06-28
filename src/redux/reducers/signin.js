@@ -2,6 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
     userEmail: null,
+    isAuthenticated: false,
     error: null,
     loading: false,
 };
@@ -10,6 +11,7 @@ const signInStart = (state, action) => {
     return {
         ...state,
         loading: true,
+        isAuthenticated: false,
         error: null
     };
 };
@@ -17,9 +19,7 @@ const signInStart = (state, action) => {
 const signInFail = (state, action) => {
     return {
         ...state,
-        id: null,
-        username: null,
-        userEmail: null,
+        isAuthenticated: false,
         loading: false,
         error: action.err
     };
@@ -28,7 +28,7 @@ const signInFail = (state, action) => {
 const signInSuccess = (state, action) => {
     return {
         ...state,
-        userEmail: action.authData.userEmail,
+        isAuthenticated: true,
         loading: false,
         error: null,
     };
@@ -37,7 +37,7 @@ const signInSuccess = (state, action) => {
 const logout = (state, action) => {
     return {
         ...state,
-        userEmail: null,
+        isAuthenticated: false,
         error: null,
         loading: false
     };
