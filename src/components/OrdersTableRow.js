@@ -37,8 +37,8 @@ export default function OrdersTableRow(props) {
                 <TableCell component="th" scope="row">
                     {row.name}
                 </TableCell>
-                <TableCell align="right">{row.name}</TableCell>
                 <TableCell align="right">{row.address}</TableCell>
+                <TableCell align="right">{row.orderSerialId}</TableCell>
                 <TableCell align="right">{row.invoice.totalOrderCost}</TableCell>
                 <TableCell align="right">{row.invoice.deliveryCost}</TableCell>
             </TableRow>
