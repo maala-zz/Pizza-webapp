@@ -1,4 +1,4 @@
-export const BaseUrl = "http://innoscripta-demo.us-east-1.elasticbeanstalk.com";
+export const BaseUrl = "https://vast-scrubland-62691.herokuapp.com";
 
 export const SignInUrl = BaseUrl + "/user/sign-in";
 export const SignUpUrl = BaseUrl + "/user/sign-up";
